@@ -70,7 +70,7 @@ var commissioning = module.exports = function(options, M) {
 
   function wireless_connect(ssid, passphrase, callback) {
     var command = base_command.concat('-w', '"' + ssid + '"', '"' + passphrase + '"').join(' ');
-    
+
     M.exec(command, function(e, stdout, stderr) {
       callback(e);
     });
@@ -152,11 +152,11 @@ var commissioning = module.exports = function(options, M) {
   app.get('/networks', function(req, res) {
     var command = base_command.concat('-l');
 
-    M.exec(command.join(' '), function(e, stdout, stderr) {    
+    M.exec(command.join(' '), function(e, stdout, stderr) {
       if (e) return res.status(500).json({ kind: 'error#network-list', error: e });
 
       stdout = stdout.trim();
-     
+
       var networks = (stdout ? stdout.split(',') : []).map(function(ssid) {
         return { ssid: ssid };
       });
@@ -185,5 +185,5 @@ var commissioning = module.exports = function(options, M) {
     access_point(function() { });
   });
 
-  return app;  
+  return app;
 };
